@@ -7,6 +7,11 @@ fn main(){
         .map(|res: Result<fs::DirEntry, io::Error>| res.map(|e| e.path()))
         .collect::<Result<Vec<_>, io::Error>>().expect("Collection has faield");
 
+    if entries.len() <= 0{
+        println!("{}", "There aren't any files or folder in this directory".red());
+        return;
+    }
+
     let file_size_string_length = file_size_string_length(&entries);
     
     match pretty_print(file_size_string_length, &entries)  {
